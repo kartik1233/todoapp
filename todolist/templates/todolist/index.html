@@ -1,0 +1,36 @@
+{%load static%}
+<DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<>
+<h4>Hello world</h4>
+<br>
+<br>
+<h3>My Todo List</h3>
+<br>
+<form action="{% url 'add' %}" method="POST" role="form">
+    {% csrf_token %}
+
+    {{form.text}}
+    <button type="submit" method="POST" action="">Add</button>
+</form>
+     <a href="{% url 'deleteCompleted' %}">
+        <button type="submit">Delete Completed</button></a>
+
+    <a href="{% url 'deleteAll' %}">
+        <button type="submit">Delete All</button></a>
+<ul>
+    {% for todolist in todo_items %}
+        {% if todolist.completed %}
+        <li>{{todolist.text}}</li>
+         {% else %}
+         <a href="{% url 'completed' todolist.id %}"><li>{{todolist.text}}</li></a>
+         {% endif %}
+    {% endfor %}
+</ul>
+
+</body>
+</html>
